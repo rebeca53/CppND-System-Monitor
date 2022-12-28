@@ -19,10 +19,22 @@ const std::string kOSPath{"/etc/os-release"};
 const std::string kPasswordPath{"/etc/passwd"};
 
 // System
+/**
+ * Read and return the system memory utilization
+ */
 float MemoryUtilization();
+/**
+ * Read and return the system uptime
+*/
 long UpTime();
 std::vector<int> Pids();
+/**
+ *  Read and return the total number of processes
+ */
 int TotalProcesses();
+/**
+ * Read and return the number of running processes
+ */
 int RunningProcesses();
 std::string OperatingSystem();
 std::string Kernel();
