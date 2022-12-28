@@ -11,12 +11,18 @@ class System {
  public:
   Processor& Cpu();                   // TODO: See src/system.cpp
   std::vector<Process>& Processes();  // TODO: See src/system.cpp
-  float MemoryUtilization();          // TODO: See src/system.cpp
-  long UpTime();                      // TODO: See src/system.cpp
-  int TotalProcesses();               // TODO: See src/system.cpp
-  int RunningProcesses();             // TODO: See src/system.cpp
-  std::string Kernel();               // TODO: See src/system.cpp
-  std::string OperatingSystem();      // TODO: See src/system.cpp
+  // Return the system's memory utilization
+  float MemoryUtilization();
+  // Return the number of seconds since the system started running
+  long UpTime();
+  // Return the total number of processes on the system
+  int TotalProcesses();
+  // Return the number of processes actively running on the system
+  int RunningProcesses();
+  // Return the system's kernel identifier
+  std::string Kernel();
+  // Return the operating system name
+  std::string OperatingSystem();
 
   // TODO: Define any necessary private members
  private:
