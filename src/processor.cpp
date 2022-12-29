@@ -3,7 +3,7 @@
 #include "linux_parser.h"
 
 float Processor::Utilization() {
-  const auto& values = LinuxParser::CpuUtilization();
+  std::vector<std::string> values = LinuxParser::CpuUtilization();
   long user = std::stol(values[0]);
   long nice = std::stol(values[1]);
   long system = std::stol(values[2]);
@@ -16,8 +16,8 @@ float Processor::Utilization() {
   idle += iowait;
   long nonIdle = user + nice + system + irq + softirq + steal;
   long total = idle + nonIdle;
-  long totalDelta = total - prevTotal;
-  long idleDelta = idle - prevIdle;
+  double totalDelta = total - prevTotal;
+  double idleDelta = idle - prevIdle;
 
   prevIdle = idle;
   prevTotal = total;

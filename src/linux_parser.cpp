@@ -113,13 +113,13 @@ long LinuxParser::ActiveJiffies() { return 0; }
 long LinuxParser::IdleJiffies() { return 0; }
 
 vector<string> LinuxParser::CpuUtilization() {
-  string user, nice, system, idle, iowait, irq, softirq, steal;
+  string label, user, nice, system, idle, iowait, irq, softirq, steal;
   string line;
   std::ifstream stream(kProcDirectory+kStatFilename);
   if (stream.is_open()) {
     std::getline(stream, line);
     std::istringstream linestream(line);
-    linestream >> user >> nice >> system >> idle >> iowait >> irq >> softirq >> steal;
+    linestream >> label >> user >> nice >> system >> idle >> iowait >> irq >> softirq >> steal;
   }
   return {user, nice, system, idle, iowait, irq, softirq, steal};
 }
