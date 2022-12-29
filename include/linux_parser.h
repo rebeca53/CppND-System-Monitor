@@ -52,6 +52,7 @@ enum CPUStates {
   kGuest_,
   kGuestNice_
 };
+// Read and return CPU utilization
 std::vector<std::string> CpuUtilization();
 long Jiffies();
 long ActiveJiffies();
