@@ -224,12 +224,15 @@ string LinuxParser::User(int pid) {
 
 long LinuxParser::UpTime(int pid) {
   string line;
-  std::ifstream stream(kProcDirectory+to_string(pid)+kStatusFilename);
+  std::ifstream stream(kProcDirectory+to_string(pid)+kStatFilename);
   if (stream.is_open()) {
     std::getline(stream, line);
     std::istringstream linestream(line);
-    string uptime = *std::next(std::istream_iterator<std::string>(linestream), 22);
-    return stol(uptime);
+    string uptime;
+    for (int i = 0; i < 22; i++) {
+      linestream >> uptime;
+    }
+    long uptime_seconds = stol(uptime)/sysconf(_SC_CLK_TCK);
   }
   return 0;
 }
