@@ -19,22 +19,14 @@ const std::string kOSPath{"/etc/os-release"};
 const std::string kPasswordPath{"/etc/passwd"};
 
 // System
-/**
- * Read and return the system memory utilization
- */
+// Read and return the system memory utilization
 float MemoryUtilization();
-/**
- * Read and return the system uptime
-*/
+// Read and return the system uptime
 long UpTime();
 std::vector<int> Pids();
-/**
- *  Read and return the total number of processes
- */
+// Read and return the total number of processes
 int TotalProcesses();
-/**
- * Read and return the number of running processes
- */
+// Read and return the number of running processes
 int RunningProcesses();
 std::string OperatingSystem();
 std::string Kernel();
@@ -54,10 +46,7 @@ enum CPUStates {
 };
 // Read and return CPU utilization
 std::vector<std::string> CpuUtilization();
-long Jiffies();
-long ActiveJiffies();
-long ActiveJiffies(int pid);
-long IdleJiffies();
+long CpuUtilization(int pid);
 
 // Processes
 // Read and return the command associated with a process

@@ -99,19 +99,6 @@ long LinuxParser::UpTime() {
   return std::stol(uptime);
 }
 
-// TODO: Read and return the number of jiffies for the system
-long LinuxParser::Jiffies() { return 0; }
-
-// TODO: Read and return the number of active jiffies for a PID
-// REMOVE: [[maybe_unused]] once you define the function
-long LinuxParser::ActiveJiffies(int pid[[maybe_unused]]) { return 0; }
-
-// TODO: Read and return the number of active jiffies for the system
-long LinuxParser::ActiveJiffies() { return 0; }
-
-// TODO: Read and return the number of idle jiffies for the system
-long LinuxParser::IdleJiffies() { return 0; }
-
 vector<string> LinuxParser::CpuUtilization() {
   string label, user, nice, system, idle, iowait, irq, softirq, steal;
   string line;
@@ -122,6 +109,23 @@ vector<string> LinuxParser::CpuUtilization() {
     linestream >> label >> user >> nice >> system >> idle >> iowait >> irq >> softirq >> steal;
   }
   return {user, nice, system, idle, iowait, irq, softirq, steal};
+}
+
+long LinuxParser::CpuUtilization(int pid) {
+  long utime, stime, cutime, cstime, starttime;
+  string line;
+  std::ifstream stream(kProcDirectory+to_string(pid)+kStatFilename);
+  if (stream.is_open()) {
+    std::getline(stream, line);
+    std::istringstream linestream(line);
+    utime = std::stol(*std::next(std::istream_iterator<std::string>(linestream), 14));
+    stime = std::stol(*std::next(std::istream_iterator<std::string>(linestream), 15));
+    cutime = std::stol(*std::next(std::istream_iterator<std::string>(linestream), 16));
+    cstime = std::stol(*std::next(std::istream_iterator<std::string>(linestream), 17));
+    starttime = std::stol(*std::next(std::istream_iterator<std::string>(linestream), 22));
+    return utime + stime + cutime + cstime;
+  }
+  return 0;
 }
 
 int LinuxParser::TotalProcesses() {

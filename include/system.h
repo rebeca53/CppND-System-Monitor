@@ -27,7 +27,6 @@ class System {
   // Return the operating system name
   std::string OperatingSystem();
 
-  // TODO: Define any necessary private members
  private:
   Processor cpu_ = {};
   std::vector<Process> processes_ = {};

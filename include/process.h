@@ -15,14 +15,15 @@ class Process {
   std::string User();
   // Return the command that generated this process
   std::string Command();
-  float CpuUtilization();                  // TODO: See src/process.cpp
+  // Return this process's CPU utilization
+  float CpuUtilization();
   // Return this process's memory utilization
   std::string Ram();
   // Return the age of this process (in seconds)
   long int UpTime();
-  bool operator<(Process const& a) const;  // TODO: See src/process.cpp
+  // Overload the "less than" comparison operator for Process objects
+  bool operator<(Process const& a) const;
 
-  // TODO: Declare any necessary private members
  private:
   int pid_{0};
 };
