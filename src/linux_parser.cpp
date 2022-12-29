@@ -111,8 +111,8 @@ vector<string> LinuxParser::CpuUtilization() {
   return {user, nice, system, idle, iowait, irq, softirq, steal};
 }
 
-long LinuxParser::CpuUtilization(int pid) {
-  long utime, stime, cutime, cstime;
+double LinuxParser::CpuUtilization(int pid) {
+  long utime, stime, cutime, cstime, starttime;
   string line;
   std::ifstream stream(kProcDirectory+to_string(pid)+kStatFilename);
   if (stream.is_open()) {
@@ -122,9 +122,12 @@ long LinuxParser::CpuUtilization(int pid) {
     stime = std::stol(*std::next(std::istream_iterator<std::string>(linestream), 15));
     cutime = std::stol(*std::next(std::istream_iterator<std::string>(linestream), 16));
     cstime = std::stol(*std::next(std::istream_iterator<std::string>(linestream), 17));
-    return utime + stime + cutime + cstime;
+    starttime = std::stol(*std::next(std::istream_iterator<std::string>(linestream), 22));
+    long total_time = utime + stime + cutime + cstime;
+    double seconds = UpTime() - (starttime/sysconf(_SC_CLK_TCK));
+    return (total_time/sysconf(_SC_CLK_TCK)) / seconds;
   }
-  return 0;
+  return 0,0;
 }
 
 int LinuxParser::TotalProcesses() {
@@ -180,9 +183,7 @@ string LinuxParser::Ram(int pid) {
       std::istringstream linestream(line);
       while (linestream >> key >> value) {
         if (key == "VmSize:") {
-          string unit;
-          linestream >> unit;
-          return value + " " + unit;
+          return value;
         }
       }
     }

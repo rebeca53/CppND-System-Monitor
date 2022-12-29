@@ -20,7 +20,7 @@ class Process {
   // Return this process's memory utilization
   std::string Ram();
   // Return the age of this process (in seconds)
-  long int UpTime() const;
+  long int UpTime();
   // Overload the "less than" comparison operator for Process objects
   bool operator<(Process const& a) const;
 

@@ -46,7 +46,7 @@ enum CPUStates {
 };
 // Read and return CPU utilization
 std::vector<std::string> CpuUtilization();
-long CpuUtilization(int pid);
+double CpuUtilization(int pid);
 
 // Processes
 // Read and return the command associated with a process
