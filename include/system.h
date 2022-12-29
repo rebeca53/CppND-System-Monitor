@@ -10,7 +10,9 @@
 class System {
  public:
   System();
+  // Return the system's CPU
   Processor& Cpu();
+  // Return a container composed of the system's processes
   std::vector<Process>& Processes();
   // Return the system's memory utilization
   float MemoryUtilization();
