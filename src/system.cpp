@@ -17,6 +17,11 @@ using std::vector;
 
 You need to properly format the uptime. Refer to the comments mentioned in format. cpp for formatting the uptime.*/
 
+System::System() : cpu_(new Processor()) {
+    for (const auto& pid : LinuxParser::Pids()) {
+        processes_.push_back(new Process(pid));
+    }
+}
 // TODO: Return the system's CPU
 Processor& System::Cpu() { return cpu_; }
 

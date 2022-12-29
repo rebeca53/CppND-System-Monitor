@@ -9,8 +9,9 @@
 
 class System {
  public:
-  Processor& Cpu();                   // TODO: See src/system.cpp
-  std::vector<Process>& Processes();  // TODO: See src/system.cpp
+  System();
+  Processor& Cpu();
+  std::vector<Process>& Processes();
   // Return the system's memory utilization
   float MemoryUtilization();
   // Return the number of seconds since the system started running

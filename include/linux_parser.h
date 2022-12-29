@@ -63,6 +63,7 @@ long IdleJiffies();
 std::string Command(int pid);
 std::string Ram(int pid);
 std::string Uid(int pid);
+// Read and return the user associated with a process
 std::string User(int pid);
 long int UpTime(int pid);
 };  // namespace LinuxParser
