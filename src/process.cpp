@@ -23,7 +23,7 @@ string Process::Command() { return LinuxParser::Command(pid_); }
 
 string Process::Ram() {
     long ram_kb = std::stol(LinuxParser::Ram(pid_));
-    double ram_mb = ram_kb/1000.0;
+    long ram_mb = ram_kb/1000.0;
     return to_string(ram_mb);
 }
 

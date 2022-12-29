@@ -113,16 +113,37 @@ vector<string> LinuxParser::CpuUtilization() {
 
 double LinuxParser::CpuUtilization(int pid) {
   long utime, stime, cutime, cstime, starttime;
-  string line;
+  string line, value;
   std::ifstream stream(kProcDirectory+to_string(pid)+kStatFilename);
   if (stream.is_open()) {
     std::getline(stream, line);
     std::istringstream linestream(line);
-    utime = std::stol(*std::next(std::istream_iterator<std::string>(linestream), 14));
-    stime = std::stol(*std::next(std::istream_iterator<std::string>(linestream), 15));
-    cutime = std::stol(*std::next(std::istream_iterator<std::string>(linestream), 16));
-    cstime = std::stol(*std::next(std::istream_iterator<std::string>(linestream), 17));
-    starttime = std::stol(*std::next(std::istream_iterator<std::string>(linestream), 22));
+    int i = 1;
+    while (i < 23) {
+      linestream >> value;
+      switch (i)
+      {
+      case 14:
+        utime = std::stol(value);
+        break;
+      case 15:
+        stime = std::stol(value);
+        break;
+      case 16:
+        cutime = std::stol(value);
+        break;
+      case 17:
+        cstime = std::stol(value);
+        break;
+      case 22:
+        starttime = std::stol(value);
+        break;
+      default:
+        break;
+      }
+      i++;
+    }
+
     long total_time = utime + stime + cutime + cstime;
     double seconds = UpTime() - (starttime/sysconf(_SC_CLK_TCK));
     return (total_time/sysconf(_SC_CLK_TCK)) / seconds;
