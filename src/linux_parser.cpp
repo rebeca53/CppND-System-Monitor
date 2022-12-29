@@ -127,7 +127,7 @@ double LinuxParser::CpuUtilization(int pid) {
     double seconds = UpTime() - (starttime/sysconf(_SC_CLK_TCK));
     return (total_time/sysconf(_SC_CLK_TCK)) / seconds;
   }
-  return 0,0;
+  return 0.0;
 }
 
 int LinuxParser::TotalProcesses() {
