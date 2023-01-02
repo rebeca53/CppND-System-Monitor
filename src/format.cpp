@@ -4,7 +4,7 @@
 
 using std::string;
 
-string Format::ElapsedTime(long seconds[[maybe_unused]]) {
+string Format::ElapsedTime(long seconds) {
   long hours = seconds / 3600;
   string textHour = std::to_string(hours);
   if (textHour.length() == 1) {
