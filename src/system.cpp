@@ -1,4 +1,7 @@
+#include "system.h"
+
 #include <unistd.h>
+
 #include <cstddef>
 #include <set>
 #include <string>
@@ -7,7 +10,6 @@
 #include "linux_parser.h"
 #include "process.h"
 #include "processor.h"
-#include "system.h"
 
 using std::set;
 using std::size_t;
@@ -15,9 +17,9 @@ using std::string;
 using std::vector;
 
 System::System() {
-    for (const auto& pid : LinuxParser::Pids()) {
-        processes_.push_back(Process(pid));
-    }
+  for (const auto& pid : LinuxParser::Pids()) {
+    processes_.push_back(Process(pid));
+  }
 }
 
 Processor& System::Cpu() { return cpu_; }

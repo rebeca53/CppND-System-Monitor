@@ -24,5 +24,5 @@ float Processor::Utilization() {
   if (totalDelta == 0.0) {
     return 0.0;
   }
-  return (totalDelta - idleDelta)/totalDelta;
+  return (totalDelta - idleDelta) / totalDelta;
 }
