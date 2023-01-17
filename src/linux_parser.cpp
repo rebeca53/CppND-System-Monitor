@@ -46,7 +46,7 @@ T getValueOfFile(std::string const &filename) {
   return value;
 };
 
-} // namespace LinuxParser
+}  // namespace LinuxParser
 
 // DONE: An example of how to read data from the filesystem
 string LinuxParser::OperatingSystem() {
@@ -87,8 +87,8 @@ string LinuxParser::Kernel() {
 // BONUS: Update this to use std::filesystem
 vector<int> LinuxParser::Pids() {
   vector<int> pids;
-  DIR* directory = opendir(kProcDirectory.c_str());
-  struct dirent* file;
+  DIR *directory = opendir(kProcDirectory.c_str());
+  struct dirent *file;
   while ((file = readdir(directory)) != nullptr) {
     // Is this a directory?
     if (file->d_type == DT_DIR) {
@@ -124,9 +124,7 @@ float LinuxParser::MemoryUtilization() {
   return (std::stof(memTotal) - std::stof(memFree)) / std::stof(memTotal);
 }
 
-long LinuxParser::UpTime() {
-  return getValueOfFile<long>(kUptimeFilename);
-}
+long LinuxParser::UpTime() { return getValueOfFile<long>(kUptimeFilename); }
 
 vector<string> LinuxParser::CpuUtilization() {
   string label, user, nice, system, idle, iowait, irq, softirq, steal;
@@ -193,9 +191,11 @@ string LinuxParser::Command(int pid) {
 }
 
 string LinuxParser::Ram(int pid) {
-  string value = findValueByKey<string>("VmSize:", std::to_string(pid) + kStatusFilename);
+  string value =
+      findValueByKey<string>("VmSize:", std::to_string(pid) + kStatusFilename);
   if (value == "") {
-    value = findValueByKey<string>("VmSize:", std::to_string(pid) + kStatMFilename);
+    value =
+        findValueByKey<string>("VmSize:", std::to_string(pid) + kStatMFilename);
   }
   return value;
 }

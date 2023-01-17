@@ -20,11 +20,15 @@ System::System() {
   for (const auto& pid : LinuxParser::Pids()) {
     processes_.push_back(Process(pid));
   }
+  sort(processes_.begin(), processes_.end(), std::greater<Process>());
 }
 
 Processor& System::Cpu() { return cpu_; }
 
-vector<Process>& System::Processes() { return processes_; }
+vector<Process>& System::Processes() {
+  sort(processes_.begin(), processes_.end(), std::greater<Process>());
+  return processes_;
+}
 
 std::string System::Kernel() { return LinuxParser::Kernel(); }
 
