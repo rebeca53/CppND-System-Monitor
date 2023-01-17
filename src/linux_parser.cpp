@@ -140,7 +140,7 @@ vector<string> LinuxParser::CpuUtilization() {
 }
 
 double LinuxParser::CpuUtilization(int pid) {
-  long utime, stime, cutime, cstime, starttime;
+  long utime, stime, cutime, cstime;
   string line, value;
   std::ifstream stream(kProcDirectory + to_string(pid) + kStatFilename);
   if (stream.is_open()) {
@@ -162,9 +162,6 @@ double LinuxParser::CpuUtilization(int pid) {
         case 17:
           cstime = std::stol(value);
           break;
-        case 22:
-          starttime = std::stol(value);
-          break;
         default:
           break;
       }
@@ -172,7 +169,7 @@ double LinuxParser::CpuUtilization(int pid) {
     }
 
     long total_time = utime + stime + cutime + cstime;
-    double seconds = UpTime() - (starttime / sysconf(_SC_CLK_TCK));
+    double seconds = UpTime(pid);
     return (total_time / sysconf(_SC_CLK_TCK)) / seconds;
   }
   return 0.0;
@@ -233,7 +230,7 @@ long LinuxParser::UpTime(int pid) {
       linestream >> uptime;
     }
     long uptime_seconds = stol(uptime) / sysconf(_SC_CLK_TCK);
-    return uptime_seconds;
+    return UpTime() - uptime_seconds;
   }
   return 0;
 }
