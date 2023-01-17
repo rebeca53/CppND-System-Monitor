@@ -18,6 +18,11 @@ const std::string kVersionFilename{"/version"};
 const std::string kOSPath{"/etc/os-release"};
 const std::string kPasswordPath{"/etc/passwd"};
 const std::string kStatMFilename{"/statm"};
+const std::string filterProcesses("processes");
+const std::string filterRunningProcesses("procs_running");
+const std::string filterUID("Uid:");
+const std::string filterProcMem("VmRSS:"); // Using VmRSS instead of VmSize to get the physical memory being used.
+
 
 // System
 // Read and return the system memory utilization

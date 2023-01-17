@@ -176,11 +176,11 @@ double LinuxParser::CpuUtilization(int pid) {
 }
 
 int LinuxParser::TotalProcesses() {
-  return findValueByKey<int>("processes", kStatFilename);
+  return findValueByKey<int>(filterProcesses, kStatFilename);
 }
 
 int LinuxParser::RunningProcesses() {
-  return findValueByKey<int>("procs_running", kStatFilename);
+  return findValueByKey<int>(filterRunningProcesses, kStatFilename);
 }
 
 string LinuxParser::Command(int pid) {
@@ -190,16 +190,16 @@ string LinuxParser::Command(int pid) {
 string LinuxParser::Ram(int pid) {
   // I`m using VmRSS instead of VmSize to get the physical memory being used.
   string value =
-      findValueByKey<string>("VmRSS:", std::to_string(pid) + kStatusFilename);
+      findValueByKey<string>(filterProcMem, std::to_string(pid) + kStatusFilename);
   if (value == "") {
     value =
-        findValueByKey<string>("VmRSS:", std::to_string(pid) + kStatMFilename);
+        findValueByKey<string>(filterProcMem, std::to_string(pid) + kStatMFilename);
   }
   return value;
 }
 
 string LinuxParser::Uid(int pid) {
-  return findValueByKey<string>("Uid:", std::to_string(pid) + kStatusFilename);
+  return findValueByKey<string>(filterUID, std::to_string(pid) + kStatusFilename);
 }
 
 string LinuxParser::User(int pid) {
