@@ -11,16 +11,12 @@
 #include "process.h"
 #include "processor.h"
 
-using std::set;
-using std::size_t;
-using std::string;
-using std::vector;
+using namespace std;
 
 System::System() {
   for (const auto& pid : LinuxParser::Pids()) {
-    processes_.push_back(Process(pid));
+    processes_.emplace_back(pid);
   }
-  sort(processes_.begin(), processes_.end(), std::greater<Process>());
 }
 
 Processor& System::Cpu() { return cpu_; }
