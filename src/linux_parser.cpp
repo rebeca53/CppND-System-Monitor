@@ -188,11 +188,12 @@ string LinuxParser::Command(int pid) {
 }
 
 string LinuxParser::Ram(int pid) {
+  // I`m using VmRSS instead of VmSize to get the physical memory being used.
   string value =
-      findValueByKey<string>("VmSize:", std::to_string(pid) + kStatusFilename);
+      findValueByKey<string>("VmRSS:", std::to_string(pid) + kStatusFilename);
   if (value == "") {
     value =
-        findValueByKey<string>("VmSize:", std::to_string(pid) + kStatMFilename);
+        findValueByKey<string>("VmRSS:", std::to_string(pid) + kStatMFilename);
   }
   return value;
 }
