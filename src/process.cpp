@@ -21,7 +21,13 @@ float Process::CpuUtilization() const {
   return LinuxParser::CpuUtilization(pid_);
 }
 
-string Process::Command() { return LinuxParser::Command(pid_); }
+string Process::Command() {
+  string command = LinuxParser::Command(pid_);
+  if (command.length() > 50) {
+    return command.substr(0, 50) + "...";
+  }
+  return command;
+}
 
 string Process::Ram() {
   string ram = LinuxParser::Ram(pid_);
